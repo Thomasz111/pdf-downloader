@@ -11,13 +11,13 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 
-
 public class PdfParser {
+    private static final String saveDirectory = "parsedPDF/";
 
-    public static void parseToTxt(InputStream inputstream, String txtName){
-        OutputStream out =null;
+    public static void parseToTxt(InputStream inputstream, String txtName) {
+        OutputStream out = null;
         try {
-            out= new FileOutputStream(txtName);
+            out = new FileOutputStream(saveDirectory + txtName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -30,11 +30,7 @@ public class PdfParser {
         PDFParser pdfparser = new PDFParser();
         try {
             pdfparser.parse(inputstream, handler, metadata, pcontext);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (TikaException e) {
+        } catch (IOException | SAXException | TikaException e) {
             e.printStackTrace();
         }
 

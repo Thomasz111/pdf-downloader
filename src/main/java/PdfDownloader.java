@@ -3,8 +3,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PdfDownloader {
+    private static final String saveDirectory = "downloadedPDF/";
 
-    public static InputStream getPdfStream(String urlString){
+    public static InputStream getPdfStream(String urlString) {
         System.out.println("opening connection");
         URL url = null;
         try {
@@ -24,7 +25,7 @@ public class PdfDownloader {
     public static void downloadPdf(InputStream in, String toFileName) {
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(new File(toFileName));
+            fos = new FileOutputStream(new File(saveDirectory + toFileName));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
