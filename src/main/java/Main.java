@@ -23,7 +23,7 @@ public class Main {
         } else{
             link = googleScraper.FindUrlToPdf(searchText);
             if(link != null){
-                url = googleScraper.FindDownloadPdfLink(searchText);
+                url = googleScraper.FindDownloadPdfLink(link);
             }
         }
 
