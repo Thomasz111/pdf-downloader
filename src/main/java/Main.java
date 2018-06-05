@@ -14,11 +14,17 @@ public class Main {
 
 
         String url = null;
-        String link = HTMLScraper.findLinkToPdfOnDblp(searchText);
+        DblpScraper dblpScraper = new DblpScraper();
+        GoogleScraper googleScraper = new GoogleScraper();
+
+        String link = dblpScraper.FindUrlToPdf(searchText);
         if(link != null){
-            url = HTMLScraper.findPdfUrl(link);
+            url = dblpScraper.FindDownloadPdfLink(link);
         } else{
-            url = GoogleSearchScraper.getFirstGoogleSearch(searchText);
+            link = googleScraper.FindUrlToPdf(searchText);
+            if(link != null){
+                url = googleScraper.FindDownloadPdfLink(searchText);
+            }
         }
 
         if(url != null){
