@@ -5,28 +5,31 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        String searchText = getSearchText();
-//        searchText = searchText.isEmpty() ?
-//                "Multiwinner Voting: A New Challenge for Social Choice Theory" : searchText;
-//
-//        String filename = searchText.replaceAll("[ :/*?|\"<>.]", "_");
-//
-//        String url = GoogleSearchScraper.getFirstGoogleSearch(searchText);
-//
-//        InputStream in = PdfDownloader.getPdfStream(url);
-//        PdfParser.parseToTxt(in, filename + ".txt");
-//        in = PdfDownloader.getPdfStream(url);
-//        PdfDownloader.downloadPdf(in, filename + ".pdf");
+        String searchText = getSearchText();
+        searchText = searchText.isEmpty() ?
+                "Multiwinner Voting: A New Challenge for Social Choice Theory" : searchText;
+                //"Distance rationalization of voting rules" : searchText;
 
-        String searchText = "Distance rationalization of voting rules";
         String filename = searchText.replaceAll("[ :/*?|\"<>.]", "_");
-        String link = HTMLScraper.findLinkToPdfOnDblp(searchText);
-        String url = HTMLScraper.findPdfUrl(link);
 
-        InputStream in = PdfDownloader.getPdfStream(url);
-        PdfDownloader.downloadPdf(in, filename + ".pdf");
-        in = PdfDownloader.getPdfStream(url);
-        PdfParser.parseToTxt(in, filename + ".txt");
+
+        String url = null;
+        String link = HTMLScraper.findLinkToPdfOnDblp(searchText);
+        if(link != null){
+            url = HTMLScraper.findPdfUrl(link);
+        } else{
+            url = GoogleSearchScraper.getFirstGoogleSearch(searchText);
+        }
+
+        if(url != null){
+            InputStream in = PdfDownloader.getPdfStream(url);
+            PdfParser.parseToTxt(in, filename + ".txt");
+            in = PdfDownloader.getPdfStream(url);
+            PdfDownloader.downloadPdf(in, filename + ".pdf");
+        } else {
+            System.out.println("PDF not found");
+        }
+
     }
 
     private static String getSearchText() {
