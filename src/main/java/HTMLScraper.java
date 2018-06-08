@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface HTMLScraper {
 
-    default String FindDownloadPdfLink(String url) throws IOException {
+    default String findDownloadPdfLink(String url) throws IOException {
         Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
 
         for (Element link : doc.select("a[href]")) {
@@ -20,5 +20,5 @@ public interface HTMLScraper {
         return null;
     }
 
-    String FindUrlToPdf(String pdfName) throws IOException;
+    String findUrlToPdf(String pdfName) throws IOException;
 }

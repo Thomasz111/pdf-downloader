@@ -17,13 +17,13 @@ public class Main {
         DblpScraper dblpScraper = new DblpScraper();
         GoogleScraper googleScraper = new GoogleScraper();
 
-        String link = dblpScraper.FindUrlToPdf(searchText);
+        String link = dblpScraper.findUrlToPdf(searchText);
         if(link != null){
-            url = dblpScraper.FindDownloadPdfLink(link);
+            url = dblpScraper.findDownloadPdfLink(link);
         } else{
-            link = googleScraper.FindUrlToPdf(searchText);
+            link = googleScraper.findUrlToPdf(searchText);
             if(link != null){
-                url = googleScraper.FindDownloadPdfLink(link);
+                url = googleScraper.findDownloadPdfLink(link);
             }
         }
 

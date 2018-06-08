@@ -8,7 +8,7 @@ import java.net.URLEncoder;
 public class DblpScraper implements HTMLScraper {
 
     @Override
-    public String FindUrlToPdf(String pdfName) throws IOException {
+    public String findUrlToPdf(String pdfName) throws IOException {
         String encoding = "UTF-8";
         Document doc = Jsoup.connect("https://dblp.uni-trier.de/search?q="
                 + URLEncoder.encode(pdfName, encoding)).userAgent("Mozilla/5.0").get();

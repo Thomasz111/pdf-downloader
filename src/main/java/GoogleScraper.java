@@ -9,7 +9,7 @@ import org.jsoup.select.Elements;
 public class GoogleScraper implements HTMLScraper{
 
     @Override
-    public String FindDownloadPdfLink(String url) {
+    public String findDownloadPdfLink(String url) {
         String absHref = null;
         try {
             Elements webSitesLinks = Jsoup.connect(url).userAgent("Mozilla/5.0").
@@ -41,7 +41,7 @@ public class GoogleScraper implements HTMLScraper{
 
 
     @Override
-    public String FindUrlToPdf(String pdfName) throws IOException {
+    public String findUrlToPdf(String pdfName) throws IOException {
         String encoding = "UTF-8";
         return "https://google.com/search?q=filetype%3Apdf+"
                 + URLEncoder.encode(pdfName, encoding);
