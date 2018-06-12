@@ -10,33 +10,32 @@ public class GoogleScraper implements HTMLScraper{
 
     @Override
     public String findDownloadPdfLink(String url) {
-        String absHref = null;
+        String parsedDownloadPdfLink = null;
         try {
             Elements webSitesLinks = Jsoup.connect(url).userAgent("Mozilla/5.0").
                     get().select(".g>.r>a");
 
-            //Check if any results found
             if (webSitesLinks.isEmpty()) {
                 return null;
             }
 
-            absHref = webSitesLinks.get(0).absUrl("href");
+            String downloadPdfLink = webSitesLinks.get(0).absUrl("href");
             try {
-                absHref = URLDecoder.decode(absHref.substring(absHref.indexOf('=') +
-                        1, absHref.indexOf('&')), "UTF-8");
+                parsedDownloadPdfLink = URLDecoder.decode(downloadPdfLink.substring(downloadPdfLink.indexOf('=') +
+                        1, downloadPdfLink.indexOf('&')), "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
-            if (!absHref.startsWith("http")) {
-                absHref = null;
+            if (!parsedDownloadPdfLink.startsWith("http")) {
+                return null;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return absHref;
+        return parsedDownloadPdfLink;
     }
 
 

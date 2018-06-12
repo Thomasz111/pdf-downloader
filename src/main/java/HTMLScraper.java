@@ -10,11 +10,10 @@ public interface HTMLScraper {
         Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
 
         for (Element link : doc.select("a[href]")) {
-            String absHref = link.attr("abs:href");
+            String downloadPdfLink = link.attr("abs:href");
             String urlText = link.text();
-            if(urlText.toLowerCase().contains("pdf") || absHref.toLowerCase().contains("pdf")){
-                System.out.println(urlText + " " + absHref);
-                return absHref;
+            if(urlText.toLowerCase().contains("pdf") || downloadPdfLink.toLowerCase().contains("pdf")){
+                return downloadPdfLink;
             }
         }
         return null;
