@@ -4,20 +4,38 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String searchText = getSearchText();
         searchText = searchText.isEmpty() ?
                 "Multiwinner Voting: A New Challenge for Social Choice Theory" : searchText;
+                //"Distance rationalization of voting rules" : searchText;
 
         String filename = searchText.replaceAll("[ :/*?|\"<>.]", "_");
 
-        String url = GoogleSearchScraper.getFirstGoogleSearch(searchText);
 
-        InputStream in = PdfDownloader.getPdfStream(url);
-        PdfDownloader.downloadPdf(in, filename + ".pdf");
+        String url = null;
+        DblpScraper dblpScraper = new DblpScraper();
+        GoogleScraper googleScraper = new GoogleScraper();
 
-        in = PdfDownloader.getPdfStream(url);
-        PdfParser.parseToTxt(in, filename + ".txt");
+        String link = dblpScraper.findUrlToPdf(searchText);
+        if(link != null){
+            url = dblpScraper.findDownloadPdfLink(link);
+        } else{
+            link = googleScraper.findUrlToPdf(searchText);
+            if(link != null){
+                url = googleScraper.findDownloadPdfLink(link);
+            }
+        }
+
+        if(url != null){
+            InputStream in = PdfDownloader.getPdfStream(url);
+            PdfParser.parseToTxt(in, filename + ".txt");
+            in = PdfDownloader.getPdfStream(url);
+            PdfDownloader.downloadPdf(in, filename + ".pdf");
+        } else {
+            System.out.println("PDF not found");
+        }
+
     }
 
     private static String getSearchText() {
