@@ -5,29 +5,22 @@ import java.nio.charset.StandardCharsets;
 
 public class HTTPRequest {
 
-    private HttpURLConnection con;
+    public InputStream getInputStreamFromPostRequest(String urlString, String urlParametersString) throws IOException {
+        byte[] postData = urlParametersString.getBytes(StandardCharsets.UTF_8);
 
-    public InputStream getInputStreamFromPostRequest(String url, String urlParameters) throws IOException {
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        URL url = new URL(urlString);
+        HttpURLConnection httpURLconnection = (HttpURLConnection) url.openConnection();
 
-        try {
+        httpURLconnection.setDoOutput(true);
+        httpURLconnection.setRequestMethod("POST");
+        httpURLconnection.setRequestProperty("User-Agent", "Java client");
+        httpURLconnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-            URL myurl = new URL(url);
-            con = (HttpURLConnection) myurl.openConnection();
-
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", "Java client");
-            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-                wr.write(postData);
-            }
-
-            return con.getInputStream();
-        }finally {
-
+        try (DataOutputStream wr = new DataOutputStream(httpURLconnection.getOutputStream())) {
+            wr.write(postData);
         }
+
+        return httpURLconnection.getInputStream();
     }
 
     public String getPageContentFromInputStream(InputStream inputStream){

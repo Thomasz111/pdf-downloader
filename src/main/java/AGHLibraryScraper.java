@@ -14,8 +14,8 @@ public class AGHLibraryScraper {
         this.httpRequest = new HTTPRequest();
     }
 
-    public ArrayList<String> getListOfPublications(String name, String surname) throws IOException {
-        String url = createUrl(name, surname);
+    public ArrayList<String> getListOfPublicationsByName(String firstName, String lastName) throws IOException {
+        String url = createUrl(firstName, lastName);
 
         Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
         int pageNumber = getNumberOfPages(doc);
@@ -42,15 +42,13 @@ public class AGHLibraryScraper {
         return publications;
     }
 
-    private String createUrl(String name, String surname){
-        return "https://bpp.agh.edu.pl/wyszukiwanie/?fA="+name+"+"+surname;
+    private String createUrl(String firstName, String lastName){
+        return "https://bpp.agh.edu.pl/wyszukiwanie/?fA="+firstName+"+"+lastName;
     }
 
     private int getNumberOfPages(Document doc){
         Elements e = doc.select(".pagination [title=\"pozycje od-do\"] [type=\"submit\"]");
-        if(e.size()==0)
-            return 1;
-        return e.size()/2;
+        return e.size()==0 ? 1 : e.size()/2;
     }
 
     private String pageUrlParameters(int pageNumber){
