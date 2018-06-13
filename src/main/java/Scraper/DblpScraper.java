@@ -1,9 +1,12 @@
+package Scraper;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class DblpScraper implements HTMLScraper {
 
@@ -21,6 +24,11 @@ public class DblpScraper implements HTMLScraper {
             }
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<String> getListOfPublicationsByName(String firstName, String lastName) throws IOException {
+        return new ArrayList<>();
     }
 
     private static String simplifyString(String string){

@@ -1,7 +1,10 @@
+package Scraper;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -44,5 +47,10 @@ public class GoogleScraper implements HTMLScraper{
         String encoding = "UTF-8";
         return "https://google.com/search?q=filetype%3Apdf+"
                 + URLEncoder.encode(pdfName, encoding);
+    }
+
+    @Override
+    public ArrayList<String> getListOfPublicationsByName(String firstName, String lastName) throws IOException {
+        return new ArrayList<>();
     }
 }

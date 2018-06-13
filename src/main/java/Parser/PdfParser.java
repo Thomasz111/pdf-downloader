@@ -1,3 +1,5 @@
+package Parser;
+
 import java.io.*;
 
 import org.apache.tika.exception.TikaException;

@@ -1,12 +1,16 @@
+package Scraper;
+
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import HTTPRequest.HTTPRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
 
-public class AGHLibraryScraper {
+public class AGHLibraryScraper implements HTMLScraper{
 
     private HTTPRequest httpRequest;
 
@@ -14,6 +18,12 @@ public class AGHLibraryScraper {
         this.httpRequest = new HTTPRequest();
     }
 
+    @Override
+    public String findUrlToPdf(String pdfName) throws IOException {
+        return null;
+    }
+
+    @Override
     public ArrayList<String> getListOfPublicationsByName(String firstName, String lastName) throws IOException {
         String url = createUrl(firstName, lastName);
 

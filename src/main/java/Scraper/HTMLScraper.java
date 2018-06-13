@@ -1,8 +1,11 @@
+package Scraper;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public interface HTMLScraper {
 
@@ -20,4 +23,6 @@ public interface HTMLScraper {
     }
 
     String findUrlToPdf(String pdfName) throws IOException;
+
+    ArrayList<String> getListOfPublicationsByName(String firstName, String lastName) throws IOException;
 }
