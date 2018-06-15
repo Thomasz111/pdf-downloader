@@ -1,3 +1,8 @@
+import Downloader.PdfDownloader;
+import Parser.PdfParser;
+import Scraper.DblpScraper;
+import Scraper.GoogleScraper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
