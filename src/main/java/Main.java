@@ -1,4 +1,5 @@
 import Downloader.PdfDownloader;
+import HibUtil.HibernateUtil;
 import Parser.PdfParser;
 import Scraper.DblpScraper;
 import Scraper.GoogleScraper;
@@ -10,7 +11,8 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String searchText = getSearchText();
+//        String searchText = getSearchText();
+        String searchText = "";
         searchText = searchText.isEmpty() ?
                 "Multiwinner Voting: A New Challenge for Social Choice Theory" : searchText;
                 //"Distance rationalization of voting rules" : searchText;
@@ -40,6 +42,9 @@ public class Main {
         } else {
             System.out.println("PDF not found");
         }
+
+
+        HibernateUtil.getSessionFactory();
 
     }
 
